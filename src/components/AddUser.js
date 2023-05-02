@@ -6,17 +6,21 @@ const AddUser = () => {
     e.preventDefault();
     console.log(user);
 
-    fetch('http://localhost:5000/users', {
-        method:'POST',
-        headers: {
-            'content-type': 'application/json',
-        },
-        body:JSON.stringify(user)
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
     })
-    .then(res=>res.json())
-    .then(data=>{
-        console.log(data)
-    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          alert("User added successfully");
+          e.target.reset();
+        }
+        console.log(data);
+      });
   };
 
   const handleInputBlur = (e) => {
