@@ -5,10 +5,23 @@ const Update = () => {
   const storedUser = useLoaderData();
 
   const [user, setUser] = useState(storedUser);
+
   const handleUpdateUser = (e) => {
     e.preventDefault();
-    console.log(storedUser);
-    console.log(user)
+    fetch(`http://localhost:5000/users/${storedUser._id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          alert("User updated");
+          console(data);
+        }
+      });
   };
 
   const handleInputChange = (e) => {
